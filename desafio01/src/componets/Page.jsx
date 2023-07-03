@@ -1,4 +1,4 @@
-import {  useState } from 'react'
+import {  useEffect, useState } from 'react'
 import { motion } from 'framer-motion';
 import boximage from '../imagens/box.png'
 import './PageStyle.css'
@@ -30,10 +30,11 @@ const[erromensagem,setErromensagem]=useState('')
 const handleEnviar=(event)=>{
     event.preventDefault();
     
-
+    //time da mensagem de sucesso e erro
     if(mensagem.trim() === "" ){
         setErromensagem(true)
         setMensagemenviada("Erro")
+        
     }else{
         setMensagemenviada(true)
         setErromensagem(false)
@@ -46,10 +47,16 @@ const handleMensage=(event)=>{
     setMensagem(event.target.value)
     
 }
-//time da mensagem de sucesso e erro
-setTimeout(()=>{
-    setMensagemenviada(false)
-},6000)
+//garantia para que a mensagem sera exibida no tempo correto
+useEffect(()=>{
+    if(mensagemenviada){
+        setTimeout(()=>{
+            setMensagemenviada(false)
+        },4000)
+    }
+},)
+
+
 //evento de  animação
 const[mostrafade,setMostrarfade]=useState(false)
 
@@ -95,7 +102,7 @@ const handleMostrar=()=>{
             <h3>Observações:</h3>
             
                 
-                <p> <textarea name="" id="" cols="30" rows="10" placeholder=' Ex:papel especial,customização especial.....' value={mensagem} onChange={handleMensage}></textarea></p>
+                <p> <textarea name="" id="" cols="30" rows="10" placeholder=' Ex:papel especial,customização especial.....' value={mensagem} onChange={handleMensage} ></textarea></p>
                 
 
                 <div className='container-enviar'>
